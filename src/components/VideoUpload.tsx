@@ -3,6 +3,7 @@ import { useDropzone } from 'react-dropzone';
 import { Box, Typography, CircularProgress, Alert } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import axios from 'axios';
+import { API_URLS } from '../api/apiConfig';
 
 // Configure axios defaults
 axios.defaults.withCredentials = true;
@@ -55,7 +56,7 @@ const VideoUpload: React.FC<VideoUploadProps> = ({ onUploadComplete, options }) 
 
     try {
       console.log('Uploading file:', file.name);
-      const response = await axios.post('http://localhost:5000/upload', formData, {
+      const response = await axios.post(API_URLS.upload(), formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -92,6 +93,7 @@ const VideoUpload: React.FC<VideoUploadProps> = ({ onUploadComplete, options }) 
         console.error('Error setting up request:', err.message);
         errorMessage = err.message || errorMessage;
       }
+      
       
       setError(errorMessage);
     } finally {

@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 import DownloadIcon from '@mui/icons-material/Download';
 import axios from 'axios';
+import { API_URLS } from '../api/apiConfig';
 
 // Configure axios defaults
 axios.defaults.withCredentials = true;
@@ -54,7 +55,7 @@ const Analysis: React.FC<AnalysisProps> = ({ data }) => {
     try {
       console.log(`Downloading ${type} in ${format} format...`);
       const response = await axios.get(
-        `http://localhost:5000/download/${type}/${format}/${summary.filename}`,
+        API_URLS.download(type, format, summary.filename),
         { 
           responseType: 'blob',
           withCredentials: true
@@ -123,7 +124,7 @@ const Analysis: React.FC<AnalysisProps> = ({ data }) => {
     try {
       console.log('Downloading highlights video...');
       const response = await axios.get(
-        `http://localhost:5000/highlights/${summary.filename}`,
+        API_URLS.highlights(summary.filename),
         { 
           responseType: 'blob',
           withCredentials: true
@@ -223,6 +224,9 @@ const Analysis: React.FC<AnalysisProps> = ({ data }) => {
                 Download Options
               </Typography>
               <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+                
+              /*
+              
                 <Button
                   variant="contained"
                   startIcon={<DownloadIcon />}
@@ -243,7 +247,10 @@ const Analysis: React.FC<AnalysisProps> = ({ data }) => {
                   onClick={() => handleDownload('analysis', 'pdf')}
                 >
                   Analysis (PDF)
+                
                 </Button>
+
+            */
                 <Button
                   variant="contained"
                   startIcon={<DownloadIcon />}
@@ -357,4 +364,4 @@ const Analysis: React.FC<AnalysisProps> = ({ data }) => {
   );
 };
 
-export default Analysis; 
+export default Analysis;
